@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Deployment.Application;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -10,9 +11,9 @@ namespace ServiceGSMApp
     {
         public Main()
         {
-            citirebd();
-
+            
             InitializeComponent();
+            
             SqlConnection cnn;
             cnn = new SqlConnection(Properties.Settings.Default.conn);
             try
@@ -28,6 +29,14 @@ namespace ServiceGSMApp
                 dbconnection.ForeColor = Color.Red;
 
             }
+            cnn.Open();
+            SqlCommand comm = cnn.CreateCommand();
+            comm.CommandText = "USE MASTER; ALTER DATABASE Baza SET MULTI_USER";
+            
+            comm.ExecuteNonQuery();
+            cnn.Close();
+
+            
         }
         Point lastPoint;
 
@@ -44,40 +53,8 @@ namespace ServiceGSMApp
         {
             lastPoint = new Point(e.X, e.Y);
         }
-        // Strings for bd
-        string source;
-        string database;
-        string username;
-        string password;
-        string ssl;
-        int counter = 0;
-        private void citirebd()
-        {
-            var path = "bdsettings.txt";
-            using (StreamReader reader = new StreamReader(path))
-            {
-
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    counter++;
-
-                    switch (counter)
-                    {
-                        case 1: source = line; break;
-                        case 2: database = line; break;
-                        case 3: username = line; break;
-                        case 4: password = line; break;
-                        default: ssl = line; break;
-                    }
-                }
-            }
-
-
-
-        }
-
-
+        
+        
 
         private void dbconnection_Click(object sender, EventArgs e)
         {
@@ -187,6 +164,7 @@ namespace ServiceGSMApp
 
         private void testings_Click(object sender, EventArgs e)
         {
+            
             if (Properties.Settings.Default.Administraton == "1")
             {
                 int k = 0;
@@ -233,6 +211,11 @@ namespace ServiceGSMApp
 
         private void Main_Load(object sender, EventArgs e)
         {
+
+
+
+
+
             Properties.Settings.Default.receptnow = "";
             Properties.Settings.Default.Save();
         }
@@ -251,6 +234,7 @@ namespace ServiceGSMApp
 
         private void orders_Click(object sender, EventArgs e)
         {
+
             if (dbconnection.ForeColor == Color.Green)
             {
                 if (Properties.Settings.Default.FileString == "" || Properties.Settings.Default.NameOrg == "" || Properties.Settings.Default.AdressOrg == "" || Properties.Settings.Default.ContactOrg == "" || Properties.Settings.Default.TimeOrg == "" || Properties.Settings.Default.Diagnostic == "")
@@ -293,5 +277,37 @@ namespace ServiceGSMApp
             Application.Exit();
         }
 
+        private void dbselect_Click(object sender, EventArgs e)
+        {
+            
+
+            try
+            {
+                OpenFileDialog folderBrowser = new OpenFileDialog();
+                // Set validate names and check file exists to false otherwise windows will
+                // not let you select "Folder Selection."
+                folderBrowser.ValidateNames = false;
+                folderBrowser.CheckFileExists = false;
+                folderBrowser.CheckPathExists = true;
+                // Always default to Folder Selection.
+                folderBrowser.FileName = "Folder Selection.";
+                if (folderBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    test1.Text = Path.GetDirectoryName(folderBrowser.FileName);
+                    //Properties.Settings.Default.conn = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True";
+                    // Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True
+                    //Data Source=.\SQLExpress;Initial Catalog=Baza;Persist Security Info=True;
+                }
+
+            }
+            catch (Exception)
+            {
+                
+                test1.Text = "Ошибка создания!";
+            }
+
+
+
+        }
     }
 }

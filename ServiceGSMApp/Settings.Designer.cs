@@ -60,13 +60,14 @@
             this.generalpanel = new System.Windows.Forms.Panel();
             this.clnlist = new System.Windows.Forms.Button();
             this.modlist = new System.Windows.Forms.Button();
-            this.cleardone = new System.Windows.Forms.Button();
             this.clearwait = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.diagnosticsprice = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.bktext = new System.Windows.Forms.Label();
+            this.restore = new System.Windows.Forms.Button();
+            this.backup = new System.Windows.Forms.Button();
             this.statbtn = new System.Windows.Forms.Label();
             this.databtn = new System.Windows.Forms.Label();
             this.masterbtn = new System.Windows.Forms.Label();
@@ -402,9 +403,7 @@
             // 
             this.generalpanel.Controls.Add(this.clnlist);
             this.generalpanel.Controls.Add(this.modlist);
-            this.generalpanel.Controls.Add(this.cleardone);
             this.generalpanel.Controls.Add(this.clearwait);
-            this.generalpanel.Controls.Add(this.label11);
             this.generalpanel.Controls.Add(this.label10);
             this.generalpanel.Controls.Add(this.diagnosticsprice);
             this.generalpanel.Controls.Add(this.label13);
@@ -433,20 +432,9 @@
             this.modlist.UseVisualStyleBackColor = true;
             this.modlist.Click += new System.EventHandler(this.modlist_Click);
             // 
-            // cleardone
-            // 
-            this.cleardone.Location = new System.Drawing.Point(138, 177);
-            this.cleardone.Name = "cleardone";
-            this.cleardone.Size = new System.Drawing.Size(85, 23);
-            this.cleardone.TabIndex = 13;
-            this.cleardone.Text = "Очистить";
-            this.cleardone.UseVisualStyleBackColor = true;
-            this.cleardone.Visible = false;
-            this.cleardone.Click += new System.EventHandler(this.cleardone_Click);
-            // 
             // clearwait
             // 
-            this.clearwait.Location = new System.Drawing.Point(138, 126);
+            this.clearwait.Location = new System.Drawing.Point(149, 118);
             this.clearwait.Name = "clearwait";
             this.clearwait.Size = new System.Drawing.Size(85, 23);
             this.clearwait.TabIndex = 12;
@@ -455,26 +443,15 @@
             this.clearwait.Visible = false;
             this.clearwait.Click += new System.EventHandler(this.clearwait_Click);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label11.Location = new System.Drawing.Point(90, 158);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(173, 16);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Список готовых заказов :";
-            this.label11.Visible = false;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(90, 101);
+            this.label10.Location = new System.Drawing.Point(120, 92);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(197, 16);
+            this.label10.Size = new System.Drawing.Size(154, 16);
             this.label10.TabIndex = 10;
-            this.label10.Text = "Список заказов в ожидании :";
+            this.label10.Text = "Очистить базу данных";
             this.label10.Visible = false;
             // 
             // diagnosticsprice
@@ -497,6 +474,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaGreen;
+            this.panel1.Controls.Add(this.bktext);
+            this.panel1.Controls.Add(this.restore);
+            this.panel1.Controls.Add(this.backup);
             this.panel1.Controls.Add(this.statbtn);
             this.panel1.Controls.Add(this.databtn);
             this.panel1.Controls.Add(this.masterbtn);
@@ -507,6 +487,42 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(210, 495);
             this.panel1.TabIndex = 17;
+            // 
+            // bktext
+            // 
+            this.bktext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.bktext.ForeColor = System.Drawing.Color.Red;
+            this.bktext.Location = new System.Drawing.Point(12, 473);
+            this.bktext.Name = "bktext";
+            this.bktext.Size = new System.Drawing.Size(188, 13);
+            this.bktext.TabIndex = 12;
+            this.bktext.Text = "текст";
+            this.bktext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.bktext.Visible = false;
+            // 
+            // restore
+            // 
+            this.restore.Location = new System.Drawing.Point(33, 450);
+            this.restore.Margin = new System.Windows.Forms.Padding(0);
+            this.restore.Name = "restore";
+            this.restore.Size = new System.Drawing.Size(140, 21);
+            this.restore.TabIndex = 11;
+            this.restore.Text = "Загрузить копию базы";
+            this.restore.UseVisualStyleBackColor = true;
+            this.restore.Visible = false;
+            this.restore.Click += new System.EventHandler(this.restore_Click);
+            // 
+            // backup
+            // 
+            this.backup.Location = new System.Drawing.Point(33, 429);
+            this.backup.Margin = new System.Windows.Forms.Padding(0);
+            this.backup.Name = "backup";
+            this.backup.Size = new System.Drawing.Size(140, 21);
+            this.backup.TabIndex = 10;
+            this.backup.Text = "Сделать копию базы";
+            this.backup.UseVisualStyleBackColor = true;
+            this.backup.Visible = false;
+            this.backup.Click += new System.EventHandler(this.backup_Click);
             // 
             // statbtn
             // 
@@ -836,7 +852,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(591, 495);
+            this.ClientSize = new System.Drawing.Size(601, 495);
             this.Controls.Add(this.statpanel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.generalpanel);
@@ -914,9 +930,7 @@
         private System.Windows.Forms.Panel generalpanel;
         private System.Windows.Forms.TextBox diagnosticsprice;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button cleardone;
         private System.Windows.Forms.Button clearwait;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button clnlist;
         private System.Windows.Forms.Button modlist;
@@ -952,5 +966,8 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label monwait;
+        private System.Windows.Forms.Label bktext;
+        private System.Windows.Forms.Button restore;
+        private System.Windows.Forms.Button backup;
     }
 }

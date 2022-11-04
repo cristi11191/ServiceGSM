@@ -31,6 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Comenzi));
             this.comenzidatagrid = new System.Windows.Forms.DataGridView();
+            this.optm = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.редактироватьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.начатьРемонтToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вернутьВОжиданиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отказToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьЗаказToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numar = new System.Windows.Forms.Label();
             this.numarb = new System.Windows.Forms.TextBox();
             this.numeb = new System.Windows.Forms.TextBox();
@@ -78,9 +84,7 @@
             this.reject = new System.Windows.Forms.Button();
             this.finish = new System.Windows.Forms.Button();
             this.actual = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.delete = new System.Windows.Forms.Button();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.addtime = new System.Windows.Forms.Button();
             this.dateTime = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
@@ -88,6 +92,7 @@
             this.datepanel = new System.Windows.Forms.Panel();
             this.editbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.comenzidatagrid)).BeginInit();
+            this.optm.SuspendLayout();
             this.panel1.SuspendLayout();
             this.datepanel.SuspendLayout();
             this.SuspendLayout();
@@ -100,12 +105,62 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comenzidatagrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.comenzidatagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.comenzidatagrid.ContextMenuStrip = this.optm;
             this.comenzidatagrid.Location = new System.Drawing.Point(33, 52);
             this.comenzidatagrid.Name = "comenzidatagrid";
             this.comenzidatagrid.ReadOnly = true;
             this.comenzidatagrid.Size = new System.Drawing.Size(780, 268);
             this.comenzidatagrid.TabIndex = 1;
             this.comenzidatagrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.comenzidatagrid_CellClick);
+            this.comenzidatagrid.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comenzidatagrid_MouseDown);
+            // 
+            // optm
+            // 
+            this.optm.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.редактироватьToolStripMenuItem,
+            this.начатьРемонтToolStripMenuItem,
+            this.вернутьВОжиданиеToolStripMenuItem,
+            this.отказToolStripMenuItem,
+            this.удалитьЗаказToolStripMenuItem});
+            this.optm.Name = "optm";
+            this.optm.Size = new System.Drawing.Size(188, 114);
+            this.optm.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.optm_Closing);
+            this.optm.Opening += new System.ComponentModel.CancelEventHandler(this.optm_Opening);
+            // 
+            // редактироватьToolStripMenuItem
+            // 
+            this.редактироватьToolStripMenuItem.Name = "редактироватьToolStripMenuItem";
+            this.редактироватьToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.редактироватьToolStripMenuItem.Text = "Редактировать";
+            this.редактироватьToolStripMenuItem.Click += new System.EventHandler(this.редактироватьToolStripMenuItem_Click);
+            // 
+            // начатьРемонтToolStripMenuItem
+            // 
+            this.начатьРемонтToolStripMenuItem.Name = "начатьРемонтToolStripMenuItem";
+            this.начатьРемонтToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.начатьРемонтToolStripMenuItem.Text = "Начать Ремонт";
+            this.начатьРемонтToolStripMenuItem.Click += new System.EventHandler(this.начатьРемонтToolStripMenuItem_Click);
+            // 
+            // вернутьВОжиданиеToolStripMenuItem
+            // 
+            this.вернутьВОжиданиеToolStripMenuItem.Name = "вернутьВОжиданиеToolStripMenuItem";
+            this.вернутьВОжиданиеToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.вернутьВОжиданиеToolStripMenuItem.Text = "Вернуть в Ожидание";
+            this.вернутьВОжиданиеToolStripMenuItem.Click += new System.EventHandler(this.вернутьВОжиданиеToolStripMenuItem_Click);
+            // 
+            // отказToolStripMenuItem
+            // 
+            this.отказToolStripMenuItem.Name = "отказToolStripMenuItem";
+            this.отказToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.отказToolStripMenuItem.Text = "Отказ";
+            this.отказToolStripMenuItem.Click += new System.EventHandler(this.отказToolStripMenuItem_Click);
+            // 
+            // удалитьЗаказToolStripMenuItem
+            // 
+            this.удалитьЗаказToolStripMenuItem.Name = "удалитьЗаказToolStripMenuItem";
+            this.удалитьЗаказToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.удалитьЗаказToolStripMenuItem.Text = "Удалить Заказ";
+            this.удалитьЗаказToolStripMenuItem.Click += new System.EventHandler(this.удалитьЗаказToolStripMenuItem_Click);
             // 
             // numar
             // 
@@ -564,7 +619,7 @@
             this.next.Name = "next";
             this.next.Size = new System.Drawing.Size(145, 27);
             this.next.TabIndex = 44;
-            this.next.Text = "Начать Ремонт";
+            this.next.Text = "Завершить Ремонт";
             this.next.UseVisualStyleBackColor = true;
             this.next.Click += new System.EventHandler(this.next_Click);
             // 
@@ -627,11 +682,6 @@
             this.actual.UseVisualStyleBackColor = true;
             this.actual.Click += new System.EventHandler(this.actual_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // delete
             // 
             this.delete.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -642,11 +692,6 @@
             this.delete.Text = "Удалить Заказ";
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
-            // 
-            // timer2
-            // 
-            this.timer2.Interval = 10;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // addtime
             // 
@@ -777,9 +822,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Comenzi_FormClosing);
             this.Load += new System.EventHandler(this.Comenzi_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Comenzi_KeyDown);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Comenzi_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Comenzi_MouseMove);
             ((System.ComponentModel.ISupportInitialize)(this.comenzidatagrid)).EndInit();
+            this.optm.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.datepanel.ResumeLayout(false);
@@ -835,9 +879,7 @@
         public System.Windows.Forms.TextBox imeib;
         public System.Windows.Forms.TextBox conditionb;
         private System.Windows.Forms.Button actual;
-        public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button delete;
-        public System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button addtime;
         private System.Windows.Forms.DateTimePicker dateTime;
         private System.Windows.Forms.Label label3;
@@ -846,5 +888,11 @@
         private System.Windows.Forms.TextBox telefonb;
         private System.Windows.Forms.Button editbtn;
         public System.Windows.Forms.Button finish;
+        private System.Windows.Forms.ContextMenuStrip optm;
+        private System.Windows.Forms.ToolStripMenuItem редактироватьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem начатьРемонтToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вернутьВОжиданиеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отказToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьЗаказToolStripMenuItem;
     }
 }

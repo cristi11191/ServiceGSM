@@ -67,6 +67,7 @@
             this.contact.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.contact.FormattingEnabled = true;
             this.contact.Location = new System.Drawing.Point(427, 179);
+            this.contact.MaxLength = 9;
             this.contact.Name = "contact";
             this.contact.Size = new System.Drawing.Size(155, 21);
             this.contact.TabIndex = 57;
@@ -164,9 +165,11 @@
             // price
             // 
             this.price.Location = new System.Drawing.Point(427, 126);
+            this.price.MaxLength = 5;
             this.price.Name = "price";
             this.price.Size = new System.Drawing.Size(155, 20);
             this.price.TabIndex = 61;
+            this.price.TextChanged += new System.EventHandler(this.price_TextChanged);
             // 
             // label4
             // 
@@ -254,6 +257,7 @@
             this.imei.Name = "imei";
             this.imei.Size = new System.Drawing.Size(155, 20);
             this.imei.TabIndex = 51;
+            this.imei.TextChanged += new System.EventHandler(this.imei_TextChanged);
             // 
             // text2
             // 
@@ -386,6 +390,7 @@
             this.Name = "Edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Edit_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

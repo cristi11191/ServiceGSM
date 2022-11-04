@@ -109,6 +109,7 @@
             // 
             this.model.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.model.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.model.Enabled = false;
             this.model.FormattingEnabled = true;
             this.model.Location = new System.Drawing.Point(205, 84);
             this.model.Name = "model";
@@ -153,6 +154,7 @@
             this.dataprimb.Name = "dataprimb";
             this.dataprimb.Size = new System.Drawing.Size(122, 20);
             this.dataprimb.TabIndex = 63;
+            this.dataprimb.Value = new System.DateTime(2022, 10, 12, 0, 0, 0, 0);
             // 
             // dataprim
             // 

@@ -19,41 +19,15 @@ namespace ServiceGSMApp
     {
         public Settings()
         {
-            citirebd();
             InitializeComponent();
             settingsload();
         }
-        string source;
-        string database;
-        string username;
-        string password;
-        string ssl;
-        int counter = 0;
+        
         int tabel;
         bool admin;
 
 
-        private void citirebd()
-        {
-            var path = "bdsettings.txt";
-            using (StreamReader reader = new StreamReader(path))
-            {
-
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    counter++;
-                    switch (counter)
-                    {
-                        case 1: source = line; break;
-                        case 2: database = line; break;
-                        case 3: username = line; break;
-                        case 4: password = line; break;
-                        default: ssl = line; break;
-                    }
-                }
-            }
-        }
+        
         string fileLocation;
 
         public void settingsload()
@@ -63,9 +37,9 @@ namespace ServiceGSMApp
             if (admin == true)
             {
                 label10.Visible = true;
-                label11.Visible = true;
-                cleardone.Visible = true;
                 clearwait.Visible = true;
+                backup.Visible = true;
+                restore.Visible = true;
             } 
         }
         string floc;
@@ -77,13 +51,13 @@ namespace ServiceGSMApp
             Properties.Settings.Default.TimeOrg = orgtime.Text;
             Properties.Settings.Default.Diagnostic = diagnosticsprice.Text;
             Properties.Settings.Default.Save();
-            //if (floc != "") File.Copy(floc, Directory.GetCurrentDirectory() + "\\lib\\image.jpg", true);
 
             this.Hide();
         }
         public void masrec_load()
         {
-            var connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
+            
+             
             using (var connection = new SqlConnection(Properties.Settings.Default.conn))
             {
                 connection.Open();
@@ -139,9 +113,10 @@ namespace ServiceGSMApp
             orgphone.Text = Properties.Settings.Default.ContactOrg;
             orgtime.Text = Properties.Settings.Default.TimeOrg;
             diagnosticsprice.Text = Properties.Settings.Default.Diagnostic;
-            
 
-            var connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
+
+            
+             
             using (var connection = new SqlConnection(Properties.Settings.Default.conn))
             {
                 connection.Open();
@@ -203,11 +178,11 @@ namespace ServiceGSMApp
 
         private void remove_Click(object sender, EventArgs e)
         {
+            
+             
             if (masterlist.Items.Count > 0 || receptionlist.Items.Count > 0)
             {
                 SqlConnection cnn;
-                string connectionString;
-                connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
                 cnn = new SqlConnection(Properties.Settings.Default.conn);
                 cnn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -248,11 +223,11 @@ namespace ServiceGSMApp
 
         private void addm_Click(object sender, EventArgs e)
         {
+            
+             
             if (name.Text.Length > 0 && contact.Text.Length > 0)
             {
                 SqlConnection cnn;
-                string connectionString;
-                connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
                 cnn = new SqlConnection(Properties.Settings.Default.conn);
                 cnn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -274,15 +249,19 @@ namespace ServiceGSMApp
                 name.Text = "";
                 contact.Text = "";
             }
+            else
+            {
+                MessageBox.Show("Заполните поле Имя и Телефон!");
+            }
         }
 
         private void addr_Click(object sender, EventArgs e)
         {
+           
+             
             if (name.Text.Length > 0 && contact.Text.Length > 0)
             {
                 SqlConnection cnn;
-                string connectionString;
-                connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
                 cnn = new SqlConnection(Properties.Settings.Default.conn);
                 cnn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -304,11 +283,16 @@ namespace ServiceGSMApp
                 name.Text = "";
                 contact.Text = "";
             }
+            else
+            {
+                MessageBox.Show("Заполните поле Имя и Телефон!");
+            }
         }
 
         
         private void upload_Click(object sender, EventArgs e)
         {
+
             string fileLocation = "";
             OpenFileDialog fdlg = new OpenFileDialog();
             fdlg.Title = "Browse Image File";
@@ -353,9 +337,9 @@ namespace ServiceGSMApp
 
         private void clearwait_Click(object sender, EventArgs e)
         {
+            
+             
             SqlConnection cnn;
-            string connectionString;
-            connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
             cnn = new SqlConnection(Properties.Settings.Default.conn);
             cnn.Open();
             SqlCommand cmd = new SqlCommand();
@@ -364,29 +348,26 @@ namespace ServiceGSMApp
             cmd.CommandText = querry;
             cmd.ExecuteNonQuery();
             cnn.Close();
-
-            querry = "SELECT COUNT(Number) FROM comenzi";
-            cmd.CommandText = querry;
-            int comen = 0;
-            int donecomen = 0;
-            try { comen = Convert.ToInt32(cmd.ExecuteScalar()); } catch { }
-            querry = "SELECT COUNT(Number) FROM doneorders";
-            cmd.CommandText = querry;
-            try { donecomen = Convert.ToInt32(cmd.ExecuteScalar()); } catch { }
-            int tot = comen + donecomen;
+            cnn = new SqlConnection(Properties.Settings.Default.conn);
             cnn.Open();
             cmd.Connection = cnn;
-            querry = "DBCC CHECKIDENT ('comenzi', RESEED);";
+            querry = "DELETE FROM doneorders";
+            cmd.CommandText = querry;
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+            cnn.Open();
+            cmd.Connection = cnn;
+            querry = "DBCC CHECKIDENT ('comenzi', RESEED , 0);";
             cmd.CommandText = querry;
             cmd.ExecuteNonQuery();
             cnn.Close();
         }
-
+        // 216, 11
         private void cleardone_Click(object sender, EventArgs e)
         {
+            
+             
             SqlConnection cnn;
-            string connectionString;
-            connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
             cnn = new SqlConnection(Properties.Settings.Default.conn);
             cnn.Open();
             SqlCommand cmd = new SqlCommand();
@@ -466,18 +447,17 @@ namespace ServiceGSMApp
 
         private void statistics()
         {
+            
+             
             SqlConnection cnn;
-            string connectionString;
-            connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
             cnn = new SqlConnection(Properties.Settings.Default.conn);
             cnn.Open();
             string querry = "SELECT COUNT(*) FROM comenzi";
             SqlCommand cmd = new SqlCommand(querry, cnn);
             int result = Convert.ToInt32(cmd.ExecuteScalar());
-            //cnn.Close();
+            
             if (result != 0)
             {
-                connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
                 cnn = new SqlConnection(Properties.Settings.Default.conn);
                 cnn.Open();
                 querry = "SELECT COUNT(Number) FROM comenzi WHERE Condition=@ojid";
@@ -485,30 +465,30 @@ namespace ServiceGSMApp
 
                 cmd.Parameters.AddWithValue("@ojid", "В ожидании");
                 try { nrstat.Text = Convert.ToString(cmd.ExecuteScalar()); } catch { }
-                //cnn.Close();
+                
 
-                //cnn.Open();
+                
                 querry = "SELECT COUNT(Number) FROM comenzi WHERE Condition=@reject";
                 cmd.CommandText = querry;
                 cmd.Parameters.AddWithValue("@reject", "Отказ");
                 try { nrreject.Text = Convert.ToString(cmd.ExecuteScalar()); } catch {}
-                //cnn.Close();
+                
 
-                //cnn.Open();
+                
                 querry = "SELECT COUNT(Number) FROM doneorders WHERE Condition=@done";
                 cmd.CommandText = querry;
                 cmd.Parameters.AddWithValue("@done", "Готов");
                 try {nrdone.Text = Convert.ToString(cmd.ExecuteScalar()); } catch { }
-                //cnn.Close();
+                
 
-                //cnn.Open();
+                
                 querry = "SELECT COUNT(Number) FROM doneorders WHERE Condition=@issue";
                 cmd.CommandText = querry;
                 cmd.Parameters.AddWithValue("@issue", "Выдан");
                 try {nrissue.Text = Convert.ToString(cmd.ExecuteScalar()); } catch { }
-                //cnn.Close();
+                
 
-                //cnn.Open();
+                
                 querry = "SELECT COUNT(Number) FROM comenzi";
                 cmd.CommandText = querry;
                 int comen = 0;
@@ -519,25 +499,25 @@ namespace ServiceGSMApp
                 try{ donecomen = Convert.ToInt32(cmd.ExecuteScalar());} catch { }
                 nrtotal.Text = Convert.ToString(comen + donecomen);
                 
-                //cnn.Close();
+                
 
-                //cnn.Open();
+                
                 querry = "SELECT SUM(Price) FROM comenzi";
                 cmd.CommandText = querry;
                 try {monwait.Text = Convert.ToString(cmd.ExecuteScalar()); } catch { }
                 if (monwait.Text == "") { monwait.Text = "0"; }
-                //cnn.Close();
-                //cnn.Open();
+                
+                
                 querry = "SELECT SUM(Price) FROM doneorders";
                 cmd.CommandText = querry;
                 try {monget.Text = Convert.ToString(cmd.ExecuteScalar()); } catch { }
                 if (monget.Text == "") { monget.Text = "0"; }
-                //cnn.Close();
+                
                 int monen = Convert.ToInt32(monwait.Text);
                 int donemon = Convert.ToInt32(monget.Text);
                 
                 montotal.Text = Convert.ToString(monen + donemon);
-                //cnn.Close();
+                
             } else
             {
                 nrstat.Text = "0";
@@ -560,6 +540,7 @@ namespace ServiceGSMApp
             Properties.Settings.Default.TimeOrg = orgtime.Text;
             Properties.Settings.Default.Diagnostic = diagnosticsprice.Text;
             Properties.Settings.Default.Save();
+            
         }
 
         private void Settings_KeyDown(object sender, KeyEventArgs e)
@@ -576,6 +557,133 @@ namespace ServiceGSMApp
 
                 // prevent child controls from handling this event as well
                 e.SuppressKeyPress = true;
+            }
+        }
+
+        private void backup_Click(object sender, EventArgs e)
+        {
+            /*string folder = "";
+
+            FolderBrowserDialog diag = new FolderBrowserDialog();
+            if (diag.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                folder = diag.SelectedPath;  //selected folder path
+                MessageBox.Show(folder);
+            }
+
+            SqlConnection cnn;
+            cnn = new SqlConnection(Properties.Settings.Default.conn);
+            cnn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cnn;
+            string querry = "BACKUP DATABASE DataBase.mdf TO DISK = @folder GO";
+            cmd.Parameters.AddWithValue("@folder", folder+"DataBase.BAK");
+            cmd.CommandText = querry;
+            cmd.ExecuteNonQuery();
+            cnn.Close();*/
+           
+             
+            SqlConnection con;
+            con = new SqlConnection(Properties.Settings.Default.conn);
+            try
+            {
+                SaveFileDialog sd = new SaveFileDialog();
+                sd.Filter = "SQL Server database backup files|*.bak";
+                sd.Title = "Create Database Backup";
+
+                if (sd.ShowDialog() == DialogResult.OK)
+                {
+
+                    string sqlStmt = string.Format("backup database Baza to disk='{0}'", sd.FileName);
+                    using (SqlCommand bu2 = new SqlCommand(sqlStmt, con))
+                    {
+                        con.Open();
+                        bu2.ExecuteNonQuery();
+                        con.Close();
+                        bktext.Visible = true;
+                        bktext.Text = "Резервная копия создана!";
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                bktext.Visible = true;
+                bktext.Text = "Ошибка создания!";
+            }
+
+
+
+        }
+
+        private void restore_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\",
+                Title = "Backup sql",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "bak",
+                Filter = "backup files (*.bak)|*.bak",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+            
+             
+            SqlConnection con;
+            con = new SqlConnection(Properties.Settings.Default.conn);
+            con.Open();
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+                try
+                {
+                    string sqlStmt = "USE master; ALTER DATABASE Baza SET SINGLE_USER WITH ROLLBACK IMMEDIATE;";
+                    using (SqlCommand bu = new SqlCommand(sqlStmt, con))
+
+                    {
+                        bu.Connection = con;
+                        //bu2.CommandText = sqlStmt;
+
+                        bu.ExecuteNonQuery();
+                    }
+                   
+                     
+                     sqlStmt = string.Format("USE master; RESTORE DATABASE Baza from disk='{0}'", openFileDialog1.FileName);
+                    using (SqlCommand bu2 = new SqlCommand(sqlStmt, con))
+
+                    {
+                        bu2.Connection = con;
+                        //bu2.CommandText = sqlStmt;
+
+                        bu2.ExecuteNonQuery();
+                    }
+                    sqlStmt = "USE master; ALTER DATABASE Baza SET MULTI_USER;";
+                    using (SqlCommand bu3 = new SqlCommand(sqlStmt, con))
+
+                    {
+                        bu3.Connection = con;
+                        //bu2.CommandText = sqlStmt;
+
+                        bu3.ExecuteNonQuery();
+                    }
+                    con.Close();
+                    bktext.Visible = true;
+                    bktext.Text = "Копия загружена успешно!";
+                }
+                catch (Exception ex)
+                {
+                    bktext.Visible = true;
+                    bktext.Text = "Ошибка загрузки!";
+                    MessageBox.Show(ex.ToString());
+                }
+                con.Close();
             }
         }
     }

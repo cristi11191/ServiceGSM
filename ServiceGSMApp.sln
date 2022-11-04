@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceGSMAppbackup", "ServiceGSMApp\ServiceGSMAppbackup.csproj", "{1286B599-DF89-4D4F-9FD0-5EF90A9A7213}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ServiceSetup", "ServiceSetup\ServiceSetup.vdproj", "{79551DBE-69D6-4A41-B7B0-68E9D481C083}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,9 @@ Global
 		{1286B599-DF89-4D4F-9FD0-5EF90A9A7213}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{1286B599-DF89-4D4F-9FD0-5EF90A9A7213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1286B599-DF89-4D4F-9FD0-5EF90A9A7213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79551DBE-69D6-4A41-B7B0-68E9D481C083}.Debug|Any CPU.ActiveCfg = Debug
+		{79551DBE-69D6-4A41-B7B0-68E9D481C083}.Release|Any CPU.ActiveCfg = Release
+		{79551DBE-69D6-4A41-B7B0-68E9D481C083}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

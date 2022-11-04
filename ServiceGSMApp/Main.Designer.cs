@@ -39,6 +39,8 @@
             this.orders = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.settings = new System.Windows.Forms.Button();
+            this.dbselect = new System.Windows.Forms.Button();
+            this.test1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.orderspic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.generalpic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.settingspic)).BeginInit();
@@ -115,9 +117,9 @@
             // 
             // testings
             // 
-            this.testings.Location = new System.Drawing.Point(73, 155);
+            this.testings.Location = new System.Drawing.Point(2, 178);
             this.testings.Name = "testings";
-            this.testings.Size = new System.Drawing.Size(102, 28);
+            this.testings.Size = new System.Drawing.Size(80, 28);
             this.testings.TabIndex = 19;
             this.testings.Text = "Админ тест";
             this.testings.UseVisualStyleBackColor = true;
@@ -135,9 +137,10 @@
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(73, 121);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 28);
+            this.button1.Size = new System.Drawing.Size(136, 28);
             this.button1.TabIndex = 21;
             this.button1.Text = "Отчёты";
             this.button1.UseVisualStyleBackColor = true;
@@ -152,12 +155,35 @@
             this.settings.UseVisualStyleBackColor = true;
             this.settings.Click += new System.EventHandler(this.settings_Click);
             // 
+            // dbselect
+            // 
+            this.dbselect.Location = new System.Drawing.Point(152, 4);
+            this.dbselect.Name = "dbselect";
+            this.dbselect.Size = new System.Drawing.Size(43, 23);
+            this.dbselect.TabIndex = 23;
+            this.dbselect.Text = "button2";
+            this.dbselect.UseVisualStyleBackColor = true;
+            this.dbselect.Visible = false;
+            this.dbselect.Click += new System.EventHandler(this.dbselect_Click);
+            // 
+            // test1
+            // 
+            this.test1.AutoSize = true;
+            this.test1.Location = new System.Drawing.Point(111, 9);
+            this.test1.Name = "test1";
+            this.test1.Size = new System.Drawing.Size(35, 13);
+            this.test1.TabIndex = 24;
+            this.test1.Text = "label1";
+            this.test1.Visible = false;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(278, 207);
+            this.ClientSize = new System.Drawing.Size(282, 211);
+            this.Controls.Add(this.test1);
+            this.Controls.Add(this.dbselect);
             this.Controls.Add(this.settings);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.orders);
@@ -199,6 +225,8 @@
         private System.Windows.Forms.Button orders;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button settings;
+        private System.Windows.Forms.Button dbselect;
+        private System.Windows.Forms.Label test1;
     }
 }
 

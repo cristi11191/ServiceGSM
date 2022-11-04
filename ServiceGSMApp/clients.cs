@@ -1,13 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Data.SqlClient;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ServiceGSMApp
@@ -16,54 +11,23 @@ namespace ServiceGSMApp
     {
         public clients()
         {
-            citirebd();
             InitializeComponent();
         }
 
         private void closebtn_Click(object sender, EventArgs e)
         {
             this.Close();
-            
+
 
         }
-
-        string source;
-        string database;
-        string username;
-        string password;
-        string ssl;
-        int counter;
-        private void citirebd()
-        {
-            var path = "bdsettings.txt";
-            using (StreamReader reader = new StreamReader(path))
-            {
-
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    counter++;
-                    switch (counter)
-                    {
-                        case 1: source = line; break;
-                        case 2: database = line; break;
-                        case 3: username = line; break;
-                        case 4: password = line; break;
-                        default: ssl = line; break;
-                    }
-                }
-            }
-
-        }
-
 
 
         private DataTable getlist()
         {
+            
+             
             DataTable dt = new DataTable();
             SqlConnection cnn;
-            string connectionString;
-            connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
             cnn = new SqlConnection(Properties.Settings.Default.conn);
 
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM clients", cnn))
@@ -83,11 +47,12 @@ namespace ServiceGSMApp
             clientsgrid.Sort(clientsgrid.Columns[0], ListSortDirection.Ascending);
         }
 
-        
+
         string tempnum;
         string tempnr;
         private void clientsgrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
             int index = e.RowIndex;
             if (index >= 0)
             {
@@ -99,11 +64,11 @@ namespace ServiceGSMApp
 
         private void adding_Click(object sender, EventArgs e)
         {
-            if (client.Text != "" && number.Text !="")
+            
+             
+            if (client.Text != "" && number.Text != "")
             {
                 SqlConnection cnn;
-                string connectionString;
-                connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
                 cnn = new SqlConnection(Properties.Settings.Default.conn);
                 cnn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -121,9 +86,9 @@ namespace ServiceGSMApp
 
         private void delete_Click(object sender, EventArgs e)
         {
+            
+             
             SqlConnection cnn;
-            string connectionString;
-            connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
             cnn = new SqlConnection(Properties.Settings.Default.conn);
             cnn.Open();
             SqlCommand cmd = new SqlCommand();
@@ -140,11 +105,11 @@ namespace ServiceGSMApp
 
         private void clearlist_Click(object sender, EventArgs e)
         {
+            
+             
             if (Properties.Settings.Default.Administraton == "1")
             {
                 SqlConnection cnn;
-                string connectionString;
-                connectionString = "datasource =" + source + "; database=" + database + "; username=" + username + "; password=" + password + "; SslMode = " + ssl;
                 cnn = new SqlConnection(Properties.Settings.Default.conn);
                 cnn.Open();
                 SqlCommand cmd = new SqlCommand();
@@ -166,7 +131,6 @@ namespace ServiceGSMApp
             {
                 this.Close();
 
-                // prevent child controls from handling this event as well
                 e.SuppressKeyPress = true;
             }
         }
