@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
@@ -64,3 +65,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+=======
+
+*.manifest binary
+*.application binary
+*.deploy binary
+*  -text
+>>>>>>> 950016aa873edcde6558b3b65f248dcffff8147f
